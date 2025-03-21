@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>রেস্পন্সিভ কার্ড ডিজাইন</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* সাধারণ স্টাইল */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        /* কন্টেইনার স্টাইল */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 20px;
+        }
+
+        /* কার্ড স্টাইল */
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: calc(33.33% - 20px); /* ৩টি কার্ড এক লাইনে */
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        /* মোবাইল ভিউতে স্ট্যাকড কার্ড */
+        @media (max-width: 768px) {
+            .card {
+                width: 100%; /* একটি কার্ড পুরো প্রস্থে */
+            }
+        }
+
+        /* কভার ফটো স্টাইল */
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        /* তথ্য স্টাইল (ছবির নিচে) */
+        .card .info {
+            padding: 15px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .card .info i {
+            margin-right: 5px;
+            color: #007bff;
+        }
+
+        .card .info strong {
+            font-weight: bold;
+        }
+
+        /* বাটন কন্টেইনার স্টাইল */
+        .button-container {
+            padding: 0 15px 15px 15px;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        /* বাটন স্টাইল */
+        .button-container a {
+            flex: 1; /* দুটি বাটনের প্রস্থ সমান */
+            text-decoration: none; /* লিঙ্কের আন্ডারলাইন সরান */
+        }
+
+        .button-container button {
+            background-color: #007bff; /* আকাশি কালার */
+            color: white;
+            border: none;
+            width: 100%; /* পুরো প্রস্থে */
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-container button:hover {
+            background-color: #0056b3; /* হোভারে কালার পরিবর্তন */
+        }
+
+        /* স্থায়ী বাটন স্টাইল */
+        .fixed-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 30px; /* গোলাকার কোণ */
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .fixed-button:hover {
+            background-color: #0056b3; /* হোভারে কালার পরিবর্তন */
+            transform: scale(1.05); /* হোভারে সামান্য বড় করা */
+        }
+
+        .fixed-button i {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- কার্ড কন্টেইনার -->
+    <div class="container">
+        <!-- কার্ড ১ -->
+        <div class="card">
+            <img src="cover1.jpg" alt="কভার ফটো">
+            <!-- ছবির নিচে তথ্য -->
+            <div class="info">
+                <p>
+                    <i class="fas fa-home"></i>
+                    <strong>বাসার ধরন:</strong> অফিস
+                </p>
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <strong>ঠিকানা:</strong> পাসপোর্ট অফিসের সামনে
+                </p>
+            </div>
+            <!-- বাটন কন্টেইনার -->
+            <div class="button-container">
+                <a href="tel:+1234567890"><button>যোগাযোগ করুন</button></a>
+                <a href="card1.html"><button>বিস্তারিত দেখুন</button></a>
+            </div>
+        </div>
+
+        <!-- কার্ড ২ -->
+        <div class="card">
+            <img src="https://via.placeholder.com/400x200" alt="কভার ফটো">
+            <!-- ছবির নিচে তথ্য -->
+            <div class="info">
+                <p>
+                    <i class="fas fa-home"></i>
+                    <strong>বাসার ধরন:</strong> অফিস
+                </p>
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <strong>ঠিকানা:</strong> পাসপোর্ট অফিসের সামনে
+                </p>
+            </div>
+            <!-- বাটন কন্টেইনার -->
+            <div class="button-container">
+                <a href="tel:+0987654321"><button>যোগাযোগ করুন</button></a>
+                <a href="#"><button>বিস্তারিত দেখুন</button></a>
+            </div>
+        </div>
+
+        <!-- কার্ড ৩ -->
+        <div class="card">
+            <img src="https://via.placeholder.com/400x200" alt="কভার ফটো">
+            <!-- ছবির নিচে তথ্য -->
+            <div class="info">
+                <p>
+                    <i class="fas fa-home"></i>
+                    <strong>বাসার ধরন:</strong> অফিস
+                </p>
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <strong>ঠিকানা:</strong> পাসপোর্ট অফিসের সামনে
+                </p>
+            </div>
+            <!-- বাটন কন্টেইনার -->
+            <div class="button-container">
+                <a href="tel:+1122334455"><button>যোগাযোগ করুন</button></a>
+                <a href="#"><button>বিস্তারিত দেখুন</button></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- স্থায়ী বাটন -->
+    <button class="fixed-button">
+        <i class="fas fa-plus"></i> যোগ করুন
+    </button>
+
+</body>
+</html>
