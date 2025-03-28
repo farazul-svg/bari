@@ -3,110 +3,562 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ফ্ল্যাট ভাড়া</title>
+    <title>বাড়ি ভাড়া - সম্পূর্ণ বিবরণ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
         .container {
+            max-width: 100%;
+            padding: 0 15px;
+        }
+        
+        /* ভার্চুয়াল ট্যুর সেকশন */
+        .tour-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .tour-slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: flex;
+            align-items: flex-end;
+        }
+        
+        .slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+        
+        .slide-info {
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 15px;
+            width: 100%;
+            transform: translateY(100%);
+            transition: transform 0.5s ease 0.3s;
+        }
+        
+        .slide.active .slide-info {
+            transform: translateY(0);
+        }
+        
+        .slide-title {
+            font-size: 18px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .slide-desc {
+            font-size: 14px;
+        }
+        
+        .nav-buttons {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .nav-btn {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.5);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn.active {
+            background-color: white;
+            transform: scale(1.2);
+        }
+        
+        /* ট্রানজিশন ইফেক্টস */
+        .door-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #333;
+            transform-origin: left;
+            transform: rotateY(0);
+            transition: transform 1s ease;
+            z-index: 2;
+        }
+        
+        .door-effect.active::before {
+            transform: rotateY(-90deg);
+        }
+        
+        /* বিবরণ সেকশন */
+        .details-section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e67e22;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            color: #e67e22;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .info-icon {
+            color: #e67e22;
+            font-size: 18px;
+            margin-top: 2px;
+        }
+        
+        .info-text {
+            flex: 1;
+        }
+        
+        .info-label {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 2px;
+        }
+        
+        .info-value {
+            font-size: 15px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        /* সুযোগ-সুবিধা সেকশন */
+        .amenities-section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+        }
+        
+        .amenity-icon {
+            width: 24px;
+            height: 24px;
+            background-color: #e67e22;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        /* যোগাযোগ সেকশন */
+        .contact-section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .contact-info {
+            margin-bottom: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .contact-icon {
+            width: 36px;
+            height: 36px;
+            background-color: #e67e22;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        
+        .contact-text {
+            flex: 1;
+        }
+        
+        .contact-label {
+            font-size: 13px;
+            color: #7f8c8d;
+        }
+        
+        .contact-value {
+            font-size: 15px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        /* একক কপি বাটন */
+        .copy-btn-container {
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
         }
-        .card {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            max-width: 400px;
-            text-align: left;
-        }
-        .flat-image {
-            width: 100%;
-            height: auto;
-        }
-        .details {
-            padding: 20px;
-        }
-        .info {
-            font-size: 16px;
-            margin-bottom: 8px;
-        }
-        .info span {
-            font-weight: bold;
-        }
-        .description {
-            margin-top: 15px;
-        }
-        .buttons {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px;
-            background: #00897b;
-            border-top: 1px solid #ddd;
-        }
-        .btn {
-            background: #fff;
+        
+        .copy-btn {
+            background-color: #e67e22;
+            color: white;
             border: none;
-            padding: 10px;
+            padding: 12px 24px;
+            border-radius: 8px;
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             cursor: pointer;
-            flex: 1;
-            margin: 5px;
-            border-radius: 5px;
+            transition: background-color 0.3s;
+            width: 100%;
+            max-width: 300px;
+            justify-content: center;
         }
-        .btn:hover {
-            background: #f0f0f0;
+        
+        .copy-btn:hover {
+            background-color: #d35400;
+        }
+        
+        /* রেস্পন্সিভ ডিজাইন */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 800px;
+                margin: 20px auto;
+            }
+            
+            .tour-container {
+                height: 400px;
+            }
+            
+            .info-grid, .amenities-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
         }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <div class="card">
-            <img src="cover1.jpg" alt="ফ্ল্যাটের ছবি" class="flat-image">
-            <div class="details">
-                <div class="info">
-                    <span>🏠 বাসার ধরন:</span> ফ্ল্যাট বাসা
+        <!-- ভার্চুয়াল ট্যুর সেকশন -->
+        <div class="tour-container">
+            <div class="tour-slider">
+                <!-- লিভিং রুম -->
+                <div class="slide door-effect" style="background-image: url('https://images.unsplash.com/photo-1583845112203-4541f58c28ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                    <div class="slide-info">
+                        <h3 class="slide-title">লিভিং রুম</h3>
+                        <p class="slide-desc">প্রশস্ত লিভিং এরিয়া সাথে প্রাকৃতিক আলোর জন্য বড় জানালা</p>
+                    </div>
                 </div>
-                <div class="info">
-                    <span>📏 আয়তন:</span> ১১০০ স্কয়ার ফিট
+                
+                <!-- রান্নাঘর -->
+                <div class="slide door-effect" style="background-image: url('https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                    <div class="slide-info">
+                        <h3 class="slide-title">রান্নাঘর</h3>
+                        <p class="slide-desc">আধুনিক সরঞ্জাম সহ সম্পূর্ণ সজ্জিত রান্নাঘর</p>
+                    </div>
                 </div>
-                <div class="info">
-                    <span>🚪 রুম সংখ্যা:</span> ৩ টি
+                
+                <!-- বেডরুম -->
+                <div class="slide door-effect" style="background-image: url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                    <div class="slide-info">
+                        <h3 class="slide-title">মাস্টার বেডরুম</h3>
+                        <p class="slide-desc">বড় ওয়াক-ইন ক্লোজেট সহ প্রশস্ত বেডরুম</p>
+                    </div>
                 </div>
-                <div class="info">
-                    <span>🛏️ বাথরুম সংখ্যা:</span> ২ টি
-                </div>
-                <div class="info">
-                    <span>💰 ভাড়ার পরিমাণ:</span> ১৩,০০০ টাকা
-                </div>
-                <div class="info">
-                    <span>📍 ঠিকানা:</span> পশ্চিম খাসপাড়া, ফরিদপুর
-                </div>
-                <div class="info">
-                    <span>📍 থানা:</span> ফরিদপুর সদর
-                </div>
-                <div class="info">
-                    <span>🔌 সুযোগ-সুবিধা:</span> সার্বক্ষণিক লিফট, বিদ্যুৎ, পানি ও গ্যাসের সুবিধা
-                </div>
-                <div class="info description">
-                    <span>📄 বিস্তারিত:</span>  
-                    ১১ তলা বিল্ডিংয়ের ১০ তলায় ফ্ল্যাট, (৩ বেড, ২ বাথ, ড্রইং ও ডাইনিং, স্পেস) পর্যাপ্ত আলো বাতাস। বাসার নিচেই হাসপাতাল। ভাড়া ১৩,০০০ টাকা (বিদ্যুৎ ও গ্যাস আলাদা)।
+                
+                <!-- বাথরুম -->
+                <div class="slide door-effect" style="background-image: url('https://images.unsplash.com/photo-1630143989616-d3f5d9fee8c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                    <div class="slide-info">
+                        <h3 class="slide-title">বাথরুম</h3>
+                        <p class="slide-desc">আধুনিক ফিক্সচার সহ পরিষ্কার এবং প্রশস্ত বাথরুম</p>
+                    </div>
                 </div>
             </div>
-            <div class="buttons">
-                <button class="btn">🗺️ গুগল ম্যাপ</button>
-                <button class="btn">📞 যোগাযোগ করুন</button>
+            
+            <div class="nav-buttons">
+                <button class="nav-btn active"></button>
+                <button class="nav-btn"></button>
+                <button class="nav-btn"></button>
+                <button class="nav-btn"></button>
+            </div>
+        </div>
+        
+        <!-- বাড়ির মূল বিবরণ -->
+        <div class="details-section">
+            <h2 class="section-title"><i class="fas fa-info-circle"></i> বাড়ির বিবরণ</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-home"></i></div>
+                    <div class="info-text">
+                        <div class="info-label">বাসার ধরণ</div>
+                        <div class="info-value">আধুনিক ফ্ল্যাট</div>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-ruler-combined"></i></div>
+                    <div class="info-text">
+                        <div class="info-label">আয়তন</div>
+                        <div class="info-value">১২০০ বর্গফুট</div>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-bed"></i></div>
+                    <div class="info-text">
+                        <div class="info-label">বেডরুম</div>
+                        <div class="info-value">৩টি</div>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-bath"></i></div>
+                    <div class="info-text">
+                        <div class="info-label">বাথরুম</div>
+                        <div class="info-value">২টি</div>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-car"></i></div>
+                    <div class="info-text">
+                        <div class="info-label">পার্কিং</div>
+                        <div class="info-value">১টি গাড়ির জন্য</div>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-money-bill-wave"></i></div>
+                    <div class="info-text">
+                        <div class="info-label">ভাড়া</div>
+                        <div class="info-value">২০,০০০ টাকা/মাস</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- সুযোগ-সুবিধা সেকশন -->
+        <div class="amenities-section">
+            <h2 class="section-title"><i class="fas fa-star"></i> সুযোগ-সুবিধা</h2>
+            <div class="amenities-grid">
+                <div class="amenity-item">
+                    <div class="amenity-icon"><i class="fas fa-wifi"></i></div>
+                    <div class="info-value">হাই-স্পিড WiFi</div>
+                </div>
+                
+                <div class="amenity-item">
+                    <div class="amenity-icon"><i class="fas fa-tv"></i></div>
+                    <div class="info-value">ক্যাবল টিভি</div>
+                </div>
+                
+                <div class="amenity-item">
+                    <div class="amenity-icon"><i class="fas fa-snowflake"></i></div>
+                    <div class="info-value">এয়ার কন্ডিশনার</div>
+                </div>
+                
+                <div class="amenity-item">
+                    <div class="amenity-icon"><i class="fas fa-utensils"></i></div>
+                    <div class="info-value">ফুল ফার্নিশড কিচেন</div>
+                </div>
+                
+                <div class="amenity-item">
+                    <div class="amenity-icon"><i class="fas fa-water"></i></div>
+                    <div class="info-value">২৪/৭ পানির সুবিধা</div>
+                </div>
+                
+                <div class="amenity-item">
+                    <div class="amenity-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="info-value">সিসি ক্যামেরা</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- যোগাযোগ সেকশন -->
+        <div class="contact-section">
+            <h2 class="section-title"><i class="fas fa-phone-alt"></i> যোগাযোগ করুন</h2>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="contact-text">
+                        <div class="contact-label">মালিকের নাম</div>
+                        <div class="contact-value">মোঃ রহিম মিয়া</div>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-text">
+                        <div class="contact-label">মোবাইল নম্বর</div>
+                        <div class="contact-value">০১৭১২-৩৪৫৬৭৮</div>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-text">
+                        <div class="contact-label">যোগাযোগের সময়</div>
+                        <div class="contact-value">সকাল ৯টা - রাত ১০টা</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- একক কপি বাটন -->
+            <div class="copy-btn-container">
+                <button class="copy-btn" onclick="copyNumber('01712345678')">
+                    <i class="fas fa-copy"></i> নাম্বার কপি করুন
+                </button>
             </div>
         </div>
     </div>
 
+    <script>
+        // স্লাইডার ফাংশনালিটি
+        const slides = document.querySelectorAll('.slide');
+        const navButtons = document.querySelectorAll('.nav-btn');
+        let currentSlide = 0;
+        
+        // প্রথম স্লাইড সক্রিয় করুন
+        slides[currentSlide].classList.add('active');
+        
+        function changeSlide(index) {
+            // সব স্লাইড রিসেট করুন
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            navButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // নতুন স্লাইড সক্রিয় করুন
+            currentSlide = index;
+            slides[currentSlide].classList.add('active');
+            navButtons[currentSlide].classList.add('active');
+        }
+        
+        // নেভিগেশন বাটনে ক্লিক ইভেন্ট যোগ করুন
+        navButtons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                changeSlide(index);
+            });
+        });
+        
+        // স্বয়ংক্রিয় স্লাইড পরিবর্তন
+        let slideInterval = setInterval(() => {
+            let nextSlide = (currentSlide + 1) % slides.length;
+            changeSlide(nextSlide);
+        }, 5000);
+        
+        // নাম্বার কপি ফাংশন
+        function copyNumber(number) {
+            navigator.clipboard.writeText(number).then(() => {
+                const copyBtn = document.querySelector('.copy-btn');
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> কপি করা হয়েছে!';
+                setTimeout(() => {
+                    copyBtn.innerHTML = '<i class="fas fa-copy"></i> নাম্বার কপি করুন';
+                }, 2000);
+            }).catch(err => {
+                console.error('কপি করতে ব্যর্থ: ', err);
+                const copyBtn = document.querySelector('.copy-btn');
+                copyBtn.innerHTML = '<i class="fas fa-times"></i> ব্যর্থ!';
+                setTimeout(() => {
+                    copyBtn.innerHTML = '<i class="fas fa-copy"></i> নাম্বার কপি করুন';
+                }, 2000);
+            });
+        }
+        
+        // মাউস হোভারে স্লাইডিং থামানো
+        document.querySelector('.tour-container').addEventListener('mouseenter', () => {
+            clearInterval(slideInterval);
+        });
+        
+        // মাউস হোভার ছেড়ে দিলে স্লাইডিং আবার শুরু
+        document.querySelector('.tour-container').addEventListener('mouseleave', () => {
+            slideInterval = setInterval(() => {
+                let nextSlide = (currentSlide + 1) % slides.length;
+                changeSlide(nextSlide);
+            }, 5000);
+        });
+    </script>
 </body>
 </html>
