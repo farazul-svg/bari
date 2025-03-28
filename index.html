@@ -1,202 +1,207 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>রেস্পন্সিভ কার্ড ডিজাইন</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* সাধারণ স্টাইল */
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: white;
-            font-family: Arial, sans-serif;
-        }
-
-        /* কন্টেইনার স্টাইল */
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            gap: 20px;
-        }
-
-        /* কার্ড স্টাইল */
-        .card {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: calc(33.33% - 20px); /* ৩টি কার্ড এক লাইনে */
-            overflow: hidden;
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        /* মোবাইল ভিউতে স্ট্যাকড কার্ড */
-        @media (max-width: 768px) {
-            .card {
-                width: 100%; /* একটি কার্ড পুরো প্রস্থে */
-            }
-        }
-
-        /* কভার ফটো স্টাইল */
-        .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        /* তথ্য স্টাইল (ছবির নিচে) */
-        .card .info {
-            padding: 15px;
-            font-size: 14px;
-            color: #333;
-        }
-
-        .card .info i {
-            margin-right: 5px;
-            color: #007bff;
-        }
-
-        .card .info strong {
-            font-weight: bold;
-        }
-
-        /* বাটন কন্টেইনার স্টাইল */
-        .button-container {
-            padding: 0 15px 15px 15px;
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        /* বাটন স্টাইল */
-        .button-container a {
-            flex: 1; /* দুটি বাটনের প্রস্থ সমান */
-            text-decoration: none; /* লিঙ্কের আন্ডারলাইন সরান */
-        }
-
-        .button-container button {
-            background-color: #007bff; /* আকাশি কালার */
-            color: white;
-            border: none;
-            width: 100%; /* পুরো প্রস্থে */
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
-        }
-
-        .button-container button:hover {
-            background-color: #0056b3; /* হোভারে কালার পরিবর্তন */
-        }
-
-        /* স্থায়ী বাটন স্টাইল */
-        .fixed-button {
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>বাড়ি ভাড়া নোটিশ</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body {
+      background: #f4f4f4;
+      font-family: 'Noto Sans Bengali', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #2ecc71;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.5;
+    }
+    header h1 span {
+      background: #27ae60;
+      padding: 4px 8px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 22px;
+    }
+    header p {
+      margin: 5px 0 0;
+      font-size: 14px;
+    }
+    .alert {
+      background: #fef3c7;
+      color: #b45309;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+    .alert i {
+      color: #b45309;
+      font-size: 16px;
+    }
+    .container {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .notice-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      overflow: hidden;
+      margin-bottom: 20px;
+      max-width: 400px;
+      width: 100%;
+    }
+    .notice-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .notice-content {
+      padding: 15px;
+    }
+    .info-line {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      color: #333;
+    }
+    .info-line .icon {
+      color: blue;
+      margin-right: 8px;
+      font-size: 18px;
+      width: 22px;
+      text-align: center;
+    }
+    .info-line p {
+      margin: 0;
+      font-size: 15px;
+    }
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+    }
+    .btn-group a, .btn-group button {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .details-btn {
+      background: #2980b9;
+      color: #fff;
+    }
+    .copy-btn {
+      background: #e74c3c;
+      color: #fff;
+    }
+    .copy-btn:active {
+      background: #c0392b;
+    }
+    /* যোগ করুন বাটন */
+    .add-button {
             position: fixed;
             bottom: 20px;
-            right: 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            border-radius: 30px; /* গোলাকার কোণ */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+        }
+        .add-button button {
+            padding: 10px 20px;
             font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
         }
-
-        .fixed-button:hover {
-            background-color: #0056b3; /* হোভারে কালার পরিবর্তন */
-            transform: scale(1.05); /* হোভারে সামান্য বড় করা */
+        .add-button button:hover {
+            background-color: #45a049;
         }
-
-        .fixed-button i {
-            margin-right: 10px;
-        }
-    </style>
+  </style>
 </head>
 <body>
 
-    <!-- কার্ড কন্টেইনার -->
-    <div class="container">
-        <!-- কার্ড ১ -->
-        <div class="card">
-            <img src="cover1.jpg" alt="কভার ফটো">
-            <!-- ছবির নিচে তথ্য -->
-            <div class="info">
-                <p>
-                    <i class="fas fa-home"></i>
-                    <strong>বাসার ধরন:</strong> অফিস
-                </p>
-                <p>
-                    <i class="fas fa-map-marker-alt"></i>
-                    <strong>ঠিকানা:</strong> পাসপোর্ট অফিসের সামনে
-                </p>
-            </div>
-            <!-- বাটন কন্টেইনার -->
-            <div class="button-container">
-                <a href="tel:+1234567890"><button>যোগাযোগ করুন</button></a>
-                <a href="card1.html"><button>বিস্তারিত দেখুন</button></a>
-            </div>
-        </div>
+  <!-- Header -->
+  <header>
+    <h1>🏠 মোট বাড়ি ভাড়া নোটিশ: <br> 
+      <span id="notice-count">1</span> টি
+    </h1>
+    <p>আপনার পছন্দের বাড়ি খুঁজে নিন</p>
+  </header>
 
-        <!-- কার্ড ২ -->
-        <div class="card">
-            <img src="https://via.placeholder.com/400x200" alt="কভার ফটো">
-            <!-- ছবির নিচে তথ্য -->
-            <div class="info">
-                <p>
-                    <i class="fas fa-home"></i>
-                    <strong>বাসার ধরন:</strong> অফিস
-                </p>
-                <p>
-                    <i class="fas fa-map-marker-alt"></i>
-                    <strong>ঠিকানা:</strong> পাসপোর্ট অফিসের সামনে
-                </p>
-            </div>
-            <!-- বাটন কন্টেইনার -->
-            <div class="button-container">
-                <a href="tel:+0987654321"><button>যোগাযোগ করুন</button></a>
-                <a href="#"><button>বিস্তারিত দেখুন</button></a>
-            </div>
-        </div>
+  <!-- Alert -->
+  <div class="alert">
+    <i class="fas fa-exclamation-triangle"></i>
+    <span>এই বিজ্ঞপ্তি শুধুমাত্র প্রচারের উদ্দেশ্যে। যাচাই করে ভাড়া নিন ও দিন। অনাকাঙ্খিত ঘটনার জন্য কর্তৃপক্ষ দায়ী নয়।</span>
+  </div>
 
-        <!-- কার্ড ৩ -->
-        <div class="card">
-            <img src="https://via.placeholder.com/400x200" alt="কভার ফটো">
-            <!-- ছবির নিচে তথ্য -->
-            <div class="info">
-                <p>
-                    <i class="fas fa-home"></i>
-                    <strong>বাসার ধরন:</strong> অফিস
-                </p>
-                <p>
-                    <i class="fas fa-map-marker-alt"></i>
-                    <strong>ঠিকানা:</strong> পাসপোর্ট অফিসের সামনে
-                </p>
-            </div>
-            <!-- বাটন কন্টেইনার -->
-            <div class="button-container">
-                <a href="tel:+1122334455"><button>যোগাযোগ করুন</button></a>
-                <a href="#"><button>বিস্তারিত দেখুন</button></a>
-            </div>
+  <!-- Notices -->
+  <div class="container">
+
+    <div class="notice-card">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60" alt="House">
+      <div class="notice-content">
+        <div class="info-line">
+          <div class="icon"><i class="fas fa-home"></i></div>
+          <p><strong>বাসার ধরণ:</strong> অফিস</p>
         </div>
+        <div class="info-line">
+          <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+          <p><strong>ঠিকানা:</strong> পাসপোর্ট অফিসের সামনে</p>
+        </div>
+        <div class="info-line">
+          <div class="icon"><i class="fas fa-phone"></i></div>
+          <p><strong>মোবাইল:</strong> <span class="mobile-number">017xxxxxxxx</span></p>
+        </div>
+        <div class="btn-group">
+          <a href="card1.html" class="details-btn">📄 বিস্তারিত দেখুন</a>
+          <button class="copy-btn" data-number="017xxxxxxxx">📋 নাম্বার কপি করুন</button>
+        </div>
+      </div>
     </div>
 
-    <!-- স্থায়ী বাটন -->
-    <button class="fixed-button">
-        <i class="fas fa-plus"></i> যোগ করুন
-    </button>
+  </div>
 
+  <script>
+    // Update Notice Count
+    const count = document.querySelectorAll('.notice-card').length;
+    document.getElementById('notice-count').innerText = count;
+
+    // Copy Button Function
+    const copyButtons = document.querySelectorAll('.copy-btn');
+    copyButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const number = btn.getAttribute('data-number');
+        navigator.clipboard.writeText(number);
+        btn.innerText = "✅ কপি হয়েছে!";
+        setTimeout(() => {
+          btn.innerText = "📋 নাম্বার কপি করুন";
+        }, 2000);
+      });
+    });
+  </script>
+  <!-- যোগ করুন বাটন -->
+  <div class="add-button">
+    <a href="https://www.google.com"><button>➕ যোগ করুন</button></a>
+
+</div>
 </body>
 </html>
